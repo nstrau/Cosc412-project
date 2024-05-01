@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="signup.css">
+    <title>login</title>
+</head>
+
+<body>
+    <h1>
+        Carfinder
+    </h1>
+    
+    <div class="login-container">
+        <h2>Login</h2>
+        <p>Password Requirements</p>
+        <li>Alphabetic character</li>
+        <li>Lowercase character</li>
+        <li>Uppercase character</li>
+        <li>Numeric character</li>
+        <li>Minimum of 8 characters</li>
+        <li>A special character</li>
+
+        <form action="/submit-login" method="POST">
+            <h2>Login</h2>
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="input-group">
+                <label for="passwordv">Confirm Password</label>
+                <input type="password" id="passwordv" name="passwordv" required>
+            </div>
+            <label for="Tos">checking this box aknowleges the terms of service </label>
+            <input type="checkbox" name="Tos" id="Tos">
+            <div>
+                 <input type="button" value="Create account">
+            </div>
+          
+          
+        </form> 
+        <p>Already have an account login <a href="login.html">here</a></p>
+    </div>
+    </div>
+
+    
+    
+</body>
+
+</html>
