@@ -1,0 +1,87 @@
+/* General Body Styles */
+/* General Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative; /* New: make body a positioning context */
+}
+
+#Logo {
+    position: absolute; /* Positioned absolutely within the body */
+    top: 10px; /* Adjust as needed */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Ensure it's centered at all screen sizes */
+    border: 1px solid black;
+    text-align: center;
+    width: auto; /* Change this as needed */
+    /* Adjust padding to fit content */
+    z-index: 10; /* Ensures it's above other elements */
+    background-color: #f4f4f9; /* Optional: match body background or use a different color */
+}
+
+.login-container {
+    background-color: #ffffff;
+    padding: 50px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 300px;
+    position: relative; /* Needed if you use z-index */
+    z-index: 5; /* Lower than the #Logo z-index */
+}
+
+/* Remaining styles unchanged */
+
+
+/* Form Heading */
+.login-container h2 {
+    text-align: center;
+    color: #333;
+}
+
+/* Grouping Labels and Inputs */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Styling the Button */
+.confirm {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: black;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+
+}
+
+button:hover {
+    background-color: #4a54e1;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+    .login-container {
+        width: 90%;
+    }
+}
