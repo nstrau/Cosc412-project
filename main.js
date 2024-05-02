@@ -209,3 +209,11 @@ const carSchema = new mongoose.Schema({
 const Car = mongoose.model('Car', carSchema);
 
 module.exports = Car;
+
+const userSchema = new mongoose.Schema({
+  username: String,
+  email: String,
+  passowrd: String
+});
+const User = mongoose.model('User', userSchema);
+module.exports = User;
