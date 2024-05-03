@@ -92,3 +92,25 @@ const Car = mongoose.model('Car', carSchema);
 
 module.exports = Car;
 
+function openModal(carCard) {
+    // Get the modal
+    var modal = document.getElementById('myModal');
+
+    // Get the element to display the car info
+    var modalContent = document.getElementById('modalContent');
+
+    // Copy the car info content into the modal
+    modalContent.innerHTML = carCard.getElementsByClassName('car-info')[0].innerHTML;
+
+    // Display the modal
+    modal.style.display = "block";
+
+    // Get the close element
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+}
+
