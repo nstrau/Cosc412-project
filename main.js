@@ -1,3 +1,10 @@
+const app =require('../app');
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
+
 let searchTerm = ""; // Stores the current search term
 
 function toggleFilterDropdown(filterType) {
@@ -120,7 +127,6 @@ function filterCars(filterValue) {
     document.getElementById('cars-container').innerHTML = filteredCards.join('');
   }
   
-
   function updateYearValues() {
       const startYearElement = document.getElementById('startYear');
       const endYearElement = document.getElementById('endYear');
@@ -190,27 +196,7 @@ function filterCars(filterValue) {
       console.log('Filtering cars by:', filterType);
   }
 
-  const mongoose = require('mongoose');
-
-const carSchema = new mongoose.Schema({
-  make: String,
-  model: String,
-  year: Number,
-  mileage: Number,
-  MPG: Number,
-  Price:Number,
-  Seats:Number,
-  Engine:String,
-  PreviousOwners:Number
-
-  
-});
-
-const Car = mongoose.model('Car', carSchema);
-
-module.exports = Car;
-
-function openModal(carCard) {
+  function openModal(carCard) {
     // Get the modal
     var modal = document.getElementById('myModal');
 
@@ -231,4 +217,6 @@ function openModal(carCard) {
         modal.style.display = "none";
     }
 }
+
+  window.addEventListener('load', fetchCars);//maybe?
 
