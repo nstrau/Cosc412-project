@@ -202,8 +202,6 @@ const carSchema = new mongoose.Schema({
   Seats:Number,
   Engine:String,
   PreviousOwners:Number
-
-  
 });
 
 const Car = mongoose.model('Car', carSchema);
@@ -211,24 +209,63 @@ const Car = mongoose.model('Car', carSchema);
 module.exports = Car;
 
 function openModal(carCard) {
-    // Get the modal
-    var modal = document.getElementById('myModal');
+ 
+  var modal = document.getElementById('myModal');
 
-    // Get the element to display the car info
-    var modalContent = document.getElementById('modalContent');
+  var modalContent = document.getElementById('modalContent');
 
-    // Copy the car info content into the modal
-    modalContent.innerHTML = carCard.getElementsByClassName('car-info')[0].innerHTML;
+  // Clear previous content
+  modalContent.innerHTML = '';
 
-    // Display the modal
-    modal.style.display = "block";
+  var carInfo = carCard.getElementsByClassName('car-info')[0].cloneNode(true);
+  modalContent.appendChild(carInfo);
 
-    // Get the close element
-    var span = document.getElementsByClassName("close")[0];
 
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
+  // test drive
+  var testDriveButton = document.createElement('button');
+  testDriveButton.textContent = 'Schedule a Test Drive';
+  testDriveButton.addEventListener('click', function() {
+    const carPop= document.createElement('div');
+    const dateInput = document.createElement('input');
+    dateInput.type = 'date';
+    dateInput.id = 'testDriveDate';
+    const submitButton = document.createElement('button');
+    submitButton.textContent = 'Confirm Date';
+    submitButton.addEventListener('click', function() {
+        alert('Test drive scheduled for ' + dateInput.value);
+        carPop.style.display = 'none'; // Hide popup after scheduling
+        
+    });
+    carPop.appendChild(dateInput);
+    carPop.appendChild(submitButton);
+    document.body.appendChild(carPop);
+  });
+  modalContent.appendChild(testDriveButton);
+
+  //  link for price estimation
+  var estimateLink = document.createElement('a');
+  estimateLink.href = 'estimate.html'; // Link to your price estimate page
+  estimateLink.textContent = 'Get Price Estimate';
+  modalContent.appendChild(estimateLink);
+  //how you might go about displaying all of the car details 
+ /* <h4>${carData.make} ${carData.model} (${carData.year})</h4>
+  <p>Price: ${carData.price}</p>
+  <p>Mileage: ${carData.mileage}</p>
+  <img src="${carData.imageUrl}" alt="${carData.model}" style="width:100%">
+  <button onclick="scheduleTestDrive('${carData._id}')">Schedule a Test Drive</button>
+  <a href="estimate.html?carId=${carData._id}">Get Price Estimate</a
+
+  */
+ 
+  modal.style.display = "block";
+
+
+  var span = document.getElementsByClassName("close")[0];
+
+
+  span.onclick = function() {
+      modal.style.display = "none";
+  }
 }
+
 
