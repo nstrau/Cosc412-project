@@ -232,7 +232,8 @@ const carSchema = new mongoose.Schema({
   Seats: Number,
   Engine: String,
   PreviousOwners: Number,
-  Image: String
+  Image: String,
+  VinNum:String
 });
 
 const Car = mongoose.model('Car', carSchema);
@@ -240,6 +241,7 @@ const Car = mongoose.model('Car', carSchema);
 module.exports = Car;
 
 function openModal(carCard) {
+  // ALL OF THIS SHOULD BE OVERWRITTEN BY THE SPECIFC CAR DATA THIS IS JUST THE METHOD 
   var modal = document.getElementById('myModal');
   var modalContent = document.getElementById('modalContent');
 
@@ -248,6 +250,9 @@ function openModal(carCard) {
 
   // Clone the car information to the modal
   var carInfo = carCard.getElementsByClassName('car-info')[0].cloneNode(true);
+  var img= document.createElement('img');
+  img.src = 'https://tmna.aemassets.toyota.com/is/image/toyota/Camry-1';
+  modalContent.appendChild(img);
   modalContent.appendChild(carInfo);
   
 
@@ -263,7 +268,6 @@ function openModal(carCard) {
     modalContent.appendChild(engineInfo);
     modalContent.appendChild(ownersInfo);
 
-  // Create and append the 'Schedule a Test Drive' button
   var testDriveButton = document.createElement('button');
   testDriveButton.textContent = 'Schedule a Test Drive';
   modalContent.appendChild(testDriveButton);
@@ -320,6 +324,12 @@ function openModal(carCard) {
       modalContent.appendChild(confirmButton);
   }
 }
+
+
+
+
+
+
 
 
 
