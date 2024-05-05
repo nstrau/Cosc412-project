@@ -22,8 +22,8 @@ function generateFilterContent(filterType) {
                 <label><input type="checkbox" onchange="filterCars('Truck')"> Truck</label><br/>
                 <label><input type="checkbox" onchange="filterCars('luxury')"> Luxury</label><br/>`;
   } else if (filterType === 'price') {
-    content += `<label><input type="checkbox" onchange="filterCars('0-20000')"> $0 - $20,000</label><br/>
-                <label><input type="checkbox" onchange="filterCars('10000-20000')"> $10,000 - $20,000</label><br/>
+    content += `<label><input type="checkbox" onchange="filterCars('0-10000')"> $0 - $20,000</label><br/>
+                <label><input type="checkbox" onchange="filterCars('10001-20000')"> $10,000 - $20,000</label><br/>
                 <label><input type="checkbox" onchange="filterCars('20001-40000')"> $20,001 - $40,000</label><br/>
                 <label><input type="checkbox" onchange="filterCars('40001-60000')"> $40,000 - $60,000</label><br/>
                 <label><input type="checkbox" onchange="filterCars('60000+')"> $60,000+ </label>`;
