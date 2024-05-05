@@ -148,3 +148,6 @@ a {
 a:hover {
     background-color: #007BAA;
 }
+#price{
+    font-size: 100px;
+}
