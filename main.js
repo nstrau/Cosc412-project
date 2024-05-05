@@ -232,8 +232,7 @@ const carSchema = new mongoose.Schema({
   Seats: Number,
   Engine: String,
   PreviousOwners: Number,
-  Image: String,
-  VinNum:String
+  Image: String
 });
 
 const Car = mongoose.model('Car', carSchema);
