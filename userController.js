@@ -1,4 +1,5 @@
-const User = require('../models/User');
+const User = require('../models/UserModel');
+const Favorites = require('../models/FavoritesModel');
 
 // Function to handle creating a new user
 exports.createUser = async (req, res) => {
@@ -66,4 +67,51 @@ exports.deleteUser = async (req, res) => {
         console.error('Error deleting user:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
+};
+
+//function to add a car to the users favorites
+async function addFavorite(req, res) {
+    try {
+        // Extract the user ID from the request
+        const userId = req.body.userId; // Assuming the user ID is provided in the request body
+
+        // Logic to add a favorite car for a user
+        // For example:
+        const favorite = new Favorites({
+            userId: userId,
+            carId: req.body.carId // Assuming the car ID is provided in the request body
+        });
+        await favorite.save();
+
+        res.status(201).json({ message: 'Favorite added successfully' });
+    } catch (error) {
+        console.error('Error adding favorite:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+//function to display users favorites
+async function getUserFavorites(req, res) {
+    try {
+        // Extract the user ID from the request
+        const userId = req.params.userId; // Assuming the user ID is provided in the request parameters
+
+        // Logic to get favorites for a user
+        // For example:
+        const favorites = await Favorites.find({ userId: userId });
+        res.json(favorites);
+    } catch (error) {
+        console.error('Error fetching user favorites:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+module.exports = {
+    addFavorite,
+    getUserFavorites,
+    createUser,
+    deleteUser,
+    updateUser,
+    getAllUsers,
+    getUserById
 };
