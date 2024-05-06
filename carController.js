@@ -1,10 +1,22 @@
-const Car = require('../models/Car');
+const Car = require('../models/CarModel');
 
 // Function to handle fetching all cars
 exports.getAllCars = async (req, res) => {
     try {
         const cars = await Car.find();
-        res.json(cars);
+        res.status(200).json(cars);
+    } catch (error) {
+        console.error('Error fetching cars:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+//function to fetch single car
+exports.getCar = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const car = await Car.findbyId(id);
+        res.status(200).json(car);
     } catch (error) {
         console.error('Error fetching cars:', error);
         res.status(500).json({ error: 'Internal server error' });
@@ -51,3 +63,11 @@ exports.deleteCar = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
+
+module.exports = {
+    getAllCars,
+    getCar,
+    createCar,
+    updateCar,
+    deleteCar
+}
