@@ -22,8 +22,8 @@ function generateFilterContent(filterType) {
                 <label><input type="checkbox" onchange="filterCars('Truck')"> Truck</label><br/>
                 <label><input type="checkbox" onchange="filterCars('luxury')"> Luxury</label><br/>`;
   } else if (filterType === 'price') {
-    content += `<label><input type="checkbox" onchange="filterCars('0-10000')"> $0 - $20,000</label><br/>
-                <label><input type="checkbox" onchange="filterCars('10001-20000')"> $10,000 - $20,000</label><br/>
+    content += `<label><input type="checkbox" onchange="filterCars('0-20000')"> $0 - $20,000</label><br/>
+                <label><input type="checkbox" onchange="filterCars('10000-20000')"> $10,000 - $20,000</label><br/>
                 <label><input type="checkbox" onchange="filterCars('20001-40000')"> $20,001 - $40,000</label><br/>
                 <label><input type="checkbox" onchange="filterCars('40001-60000')"> $40,000 - $60,000</label><br/>
                 <label><input type="checkbox" onchange="filterCars('60000+')"> $60,000+ </label>`;
@@ -35,7 +35,14 @@ function generateFilterContent(filterType) {
         <label><input type="checkbox" onchange="filterCars('30+')"> 30 mpg or more </label><br/>
         <label><input type="checkbox" onchange="filterCars('40+')"> 40 mpg or more </label><br/>`;
   } else if(filterType=== 'year'){
-    content+=`<input type="range" name="year" id="year" min="2011" max="2024" onchange="filterCars('year='+this.value)">`;
+    content+=`<label>Min Year: <input type="range" name="minYear" id="minYear" min="2010" max="2024" value="2010" oninput="updateYearValues()"></label>
+    <span id="minYearValue">2010</span>
+    <br>
+    <label>Max Year: <input type="range" name="maxYear" id="maxYear" min="2010" max="2024" value="2024" oninput="updateYearValues()"></label>
+    <span id="maxYearValue">2024</span>
+    <br>
+    <button onclick="applyYearFilter()">Apply Filter</button>
+  `;
   } else if(filterType=== 'make'){
     content+=`<label><input type="checkbox" onchange="filterCars('honda')">Honda</label><br/>
         <label><input type="checkbox" onchange="filterCars('Toyota')"> Toyota </label><br/>
@@ -122,19 +129,36 @@ function filterCars(filterValue) {
   
 
   function updateYearValues() {
-      const startYearElement = document.getElementById('startYear');
-      const endYearElement = document.getElementById('endYear');
-      const yearRange = document.getElementById('yearRange');
-      const yearRange2 = document.getElementById('yearRange2');
-
-      let startVal = Math.min(yearRange.value, yearRange2.value);
-      let endVal = Math.max(yearRange.value, yearRange2.value);
-
-      yearRange.value = startVal;
-      yearRange2.value = endVal;
-
-      startYearElement.textContent = startVal;
-      endYearElement.textContent = endVal;
+    const minYearInput = document.getElementById('minYear');
+    const maxYearInput = document.getElementById('maxYear');
+    const minYearValue = document.getElementById('minYearValue');
+    const maxYearValue = document.getElementById('maxYearValue');
+  
+    // Parse the integer values from the sliders
+    let minYear = parseInt(minYearInput.value);
+    let maxYear = parseInt(maxYearInput.value);
+  
+    // Ensure the maximum is not less than the minimum
+    if (maxYear < minYear) {
+        maxYear = minYear;
+        maxYearInput.value = maxYear;
+    }
+  
+    // Ensure the minimum is not more than the maximum
+    if (minYear > maxYear) {
+        minYear = maxYear;
+        minYearInput.value = minYear;
+    }
+  
+    // Update the display values
+    minYearValue.textContent = minYear;
+    maxYearValue.textContent = maxYear;
+  }
+  
+  function applyYearFilter() {
+    const minYear = parseInt(document.getElementById('minYear').value);
+    const maxYear = parseInt(document.getElementById('maxYear').value);
+    filterCars('yearRange', minYear, maxYear);
   }
 
   // Fetch car data from the backend server
@@ -201,7 +225,8 @@ const carSchema = new mongoose.Schema({
   Price:Number,
   Seats:Number,
   Engine:String,
-  PreviousOwners:Number
+  PreviousOwners:Number,
+  VinNum:String
 
   
 });
@@ -211,24 +236,94 @@ const Car = mongoose.model('Car', carSchema);
 module.exports = Car;
 
 function openModal(carCard) {
-    // Get the modal
-    var modal = document.getElementById('myModal');
+  var modal = document.getElementById('myModal');
+  var modalContent = document.getElementById('modalContent');
 
-    // Get the element to display the car info
-    var modalContent = document.getElementById('modalContent');
+  // Clear previous content
+  modalContent.innerHTML = '';
 
-    // Copy the car info content into the modal
-    modalContent.innerHTML = carCard.getElementsByClassName('car-info')[0].innerHTML;
+  // Clone the car information to the modal
+  var carInfo = carCard.getElementsByClassName('car-info')[0].cloneNode(true);
+  
+  // Correcting the setting of image source
+  var imgSrc = carCard.querySelector('img').src;
+  var img = document.createElement('img');
+  img.src = imgSrc;
+  img.style.width = '60%';  // Set image size, adjust as needed
+  img.style.display = 'block';  // Center the image
+  img.style.margin = 'auto';
+  modalContent.appendChild(img);
+  modalContent.appendChild(carInfo);
+  var seatsInfo = document.createElement('p');
+  seatsInfo.textContent = 'Seats: 5'; // Placeholder for seats
+  var engineInfo = document.createElement('p');
+  engineInfo.textContent = 'Engine: 2.5L 4-cylinder'; // Placeholder for engine
+  var ownersInfo = document.createElement('p');
+  ownersInfo.textContent = 'Previous Owners: 2'; // Placeholder for previous owners
 
-    // Display the modal
-    modal.style.display = "block";
+  // Append additional info to modal content
+  modalContent.appendChild(seatsInfo);
+  modalContent.appendChild(engineInfo);
+  modalContent.appendChild(ownersInfo);
 
-    // Get the close element
-    var span = document.getElementsByClassName("close")[0];
+  var testDriveButton = document.createElement('button');
+  testDriveButton.textContent = 'Schedule a Test Drive';
+  modalContent.appendChild(testDriveButton);
 
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
+  // Add click event listener to the test drive button
+  testDriveButton.addEventListener('click', function() {
+      scheduleTestDrive(modalContent);
+  });
+
+  var estimateButton = document.createElement('button');
+  estimateButton.textContent = 'Get an Estimate';
+  estimateButton.style.marginLeft = '10px';
+  estimateButton.style.backgroundColor = '#007BAA';
+  modalContent.appendChild(estimateButton);
+
+  // Set up the link for the 'Get an Estimate' button
+  estimateButton.addEventListener('click', function() {
+      window.location.href = 'estimate.html'; // Change 'estimate.html' to your estimate page URL
+  });
+
+  // Display the modal
+  modal.style.display = "block";
+
+  // Close button functionality
+  var span = document.getElementsByClassName("close")[0];
+  span.onclick = function() {
+      modal.style.display = "none";
+  }
+}
+
+
+function scheduleTestDrive(modalContent) {
+  // Create and show the date input within the modal
+  const dateInput = document.createElement('input');
+  dateInput.type = 'date';
+  dateInput.id = 'testDriveDate';
+  dateInput.style.margin = '10px';
+  modalContent.appendChild(dateInput);
+
+  const timeInput = document.createElement('input');
+  timeInput.type = 'time';
+  timeInput.style.margin = '10px';
+  modalContent.appendChild(timeInput);
+
+  // Create a confirm button for the date
+  const confirmButton = document.createElement('button');
+  confirmButton.textContent = 'Confirm Date';
+  confirmButton.style.margin = '10px';
+  confirmButton.onclick = function() {
+      if (dateInput.value && timeInput.value) {
+          alert('Test drive scheduled for ' + dateInput.value + ' at ' + timeInput.value);
+          dateInput.remove(); // Optionally remove the date input after confirmation
+          timeInput.remove(); // Optionally remove the time input
+          confirmButton.remove(); // Remove the confirm button as well
+      } else {
+          alert('Please select a date and time.');
+      }
+  };
+  modalContent.appendChild(confirmButton);
 }
 

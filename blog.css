@@ -1,0 +1,97 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.social-media {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.social-icon {
+    margin: 0 10px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.blog {
+    background: white;
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+}
+
+.blog-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.blog-box {
+    width: 30%;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    background: #fff;
+    padding: 10px;
+}
+
+.blog-info {
+    padding: 10px;
+}
+
+.blog-btn {
+    display: inline-block;
+    padding: 5px 10px;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background: #333;
+    color: #fff;
+}
+.home-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.home-button:hover {
+    background-color: #0056b3;
+    color: #ffffff;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .blog-container {
+        flex-direction: column;
+    }
+
+    .blog-box {
+        width: 100%;
+    }
+}

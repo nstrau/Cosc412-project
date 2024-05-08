@@ -1,0 +1,98 @@
+/* General body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+header {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 24px;
+}
+
+header span {
+    font-weight: bold;
+}
+
+.container {
+    background: white;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+h2, h3, h4 {
+    color: #666;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.close-button {
+    position: absolute;  /* Positioning it relative to its nearest positioned ancestor */
+    top: 10px;           /* Distance from the top of the container */
+    right: 10px;         /* Distance from the right of the container */
+    padding: 5px 10px;   /* Padding for better touch area */
+    font-size: 24px;     /* Make the 'X' bigger */
+    text-decoration: none; /* Remove underline from link */
+    color: #fff;         /* White text color */
+    background-color: #444; /* Dark background for the button */
+    border-radius: 50%;  /* Rounded shape */
+    display: inline-block;
+}
+
+.close-button:hover, .close-button:focus {
+    background-color: #222; /* Darker background on hover/focus for better UI feedback */
+    color: #ddd;            /* Lighter text color when hovered/focused */
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+a{
+    justify-content: left;
+    padding-left: 100px;
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 10px;
+    }
+}
